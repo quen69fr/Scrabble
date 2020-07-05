@@ -6,20 +6,17 @@ from flask import Flask, request, jsonify
 import random
 # import json
 
-MODE_SAUVEGARDE = False
-FICHIER_SAUVEGARDE = 'sauvegarde.json'
-
 app = Flask(__name__)
 
 
-class Evenement():
+class Evenement:
     id_max = 1
 
-    def __init__(self, pseudo, type, contenu=None):
+    def __init__(self, pseudo, type_event, contenu=None):
         self.id = Evenement.id_max
         Evenement.id_max += 1
         self.pseudo = pseudo
-        self.type = type
+        self.type = type_event
         self.contenu = contenu
 
     def dump(self):
@@ -104,6 +101,16 @@ def demarrer():
     event = Evenement(None, TYPE_EVT_DEMARRER, liste_pseudos_joueurs)
     liste_events.append(event)
     return str(1)
+
+
+@app.route(f'/scrabble/{ROUTE_EXIT}')
+def exit():
+    for pseudo in liste_pseudos_joueurs:
+        liste_pseudos_joueurs.remove(pseudo)
+    for event in liste_events:
+        liste_events.remove(event)
+    for lettre in liste_lettres_sac:
+        liste_lettres_sac.remove(lettre)
 
 
 if __name__ == '__main__':

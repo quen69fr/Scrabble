@@ -12,6 +12,7 @@ ROUTE_LOGIN = 'login'
 ROUTE_PIOCHER_LETTRES = 'piocher'
 ROUTE_JETER_LETTRES = 'jeter'
 ROUTE_DEMARRER = 'demarrer'
+ROUTE_EXIT = 'exit'
 
 TYPE_EVT_SAUVEGARDE = 'sauvegarde'
 TYPE_EVT_VALIDER = 'valider'

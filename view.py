@@ -194,7 +194,7 @@ class PanneauDepart:
                                    pleinOuLargeurContour=4, couleurFont=BLANC)
         self.barreTexte = BarreTexte(Rectangle(int(X_PLATEAU / 2), Y_BARRE_TEXTE, LARGEUR_BARRE_TEXTE,
                                                HAUTEUR_BARRE_TEXTE, GRIS_FONCE, 3, x_0left_1centre_2right=1),
-                                     texte_x_0left_1centre_2right=1, texteDepart=IP_PAR_DEFAUT, tailleTexte=35)
+                                     texte_x_0left_1centre_2right=1, texteDepart=ADRESSE_IP, tailleTexte=35)
         self.texte2 = Text('Pseudo', int(X_PLATEAU / 2), Y_TEXTE_DEPART, 50, x_0left_1centre_2right=1)
         self.texte1 = Text('Adresse ip', int(X_PLATEAU / 2), Y_TEXTE_DEPART, 50, x_0left_1centre_2right=1)
         self.bouonValider = bouton_autour_ecran(Text('Valider', int(X_PLATEAU / 2), Y_BOUTON_VALIDER_DEPART,

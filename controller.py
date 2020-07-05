@@ -9,8 +9,8 @@ from outils import *
 
 class Controller:
     def __init__(self, partie: Partie, view: View):
-        self.port = '12800'
-        self.hote = ''
+        self.port = PORT
+        self.hote = ADRESSE_IP
         self.partie = partie
         self.view = view
         self.reseauClient = None
