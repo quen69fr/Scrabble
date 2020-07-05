@@ -1,8 +1,8 @@
 # coding: utf-8
 
 # IP_PAR_DEFAUT = '86.194.73.178'
-ADRESSE_IP = 'onet.cavaliba.com'
 # ADRESSE_IP = '127.0.0.1'
+ADRESSE_IP = 'onet.cavaliba.com'
 PORT = '12800'
 
 ETAT_PARTIE_LOGIN = -1
