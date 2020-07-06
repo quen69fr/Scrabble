@@ -30,6 +30,9 @@ liste_lettres_sac = []
 
 @app.route(f'/scrabble/{ROUTE_LOGIN}')
 def login():
+    global liste_events
+    global liste_pseudos_joueurs
+
     pseudo = request.args.get(PARAM_PSEUDO)
     if len(liste_pseudos_joueurs) > 3:
         return str(0)
@@ -41,6 +44,8 @@ def login():
 
 @app.route(f'/scrabble/{ROUTE_ACTION_EVENT}', methods=['POST'])
 def action():
+    global liste_events
+
     req_data = request.get_json()
     pseudo = req_data[PARAM_PSEUDO]
     type = req_data[PARAM_TYPE]
@@ -52,6 +57,8 @@ def action():
 
 @app.route(f'/scrabble/{ROUTE_GET_EVENT}')
 def event():
+    global liste_events
+
     pseudo = request.args.get(PARAM_PSEUDO)
     id_str = request.args.get(PARAM_ID)
     l = []
@@ -74,6 +81,9 @@ def event():
 
 @app.route(f'/scrabble/{ROUTE_PIOCHER_LETTRES}')
 def piocher():
+    global liste_events
+    global liste_lettres_sac
+
     nbLettres = int(request.args.get(PARAM_NB_LETTRES))
     if nbLettres > len(liste_lettres_sac):
         nbLettres = len(liste_lettres_sac)
@@ -87,6 +97,9 @@ def piocher():
 
 @app.route(f'/scrabble/{ROUTE_JETER_LETTRES}')
 def jeter():
+    global liste_events
+    global liste_lettres_sac
+
     lettre = str(request.args.get(PARAM_LETTRE))
     liste_lettres_sac.append(lettre.upper()[0])
     random.shuffle(liste_lettres_sac)
@@ -97,25 +110,35 @@ def jeter():
 
 @app.route(f'/scrabble/{ROUTE_DEMARRER}')
 def demarrer():
+    global liste_events
+
     random.shuffle(liste_pseudos_joueurs)
     event = Evenement(None, TYPE_EVT_DEMARRER, liste_pseudos_joueurs)
     liste_events.append(event)
     return str(1)
 
 
-@app.route(f'/scrabble/{ROUTE_EXIT}')
-def exit():
-    for pseudo in liste_pseudos_joueurs:
-        liste_pseudos_joueurs.remove(pseudo)
-    for event in liste_events:
-        liste_events.remove(event)
-    for lettre in liste_lettres_sac:
-        liste_lettres_sac.remove(lettre)
+@app.route(f'/scrabble/{ROUTE_REINIT}')
+def reinit():
+    init_jeu()
+    return str(1)
 
 
-if __name__ == '__main__':
+def init_jeu():
+    global liste_pseudos_joueurs
+    global liste_events
+    global liste_lettres_sac
+
+    liste_pseudos_joueurs = []
+    liste_events = []
+    liste_lettres_sac = []
     for lettre, occurence in OCCURENCES_PAR_LETTRE.items():
         for i in range(occurence):
             liste_lettres_sac.append(lettre)
     random.shuffle(liste_lettres_sac)
-    app.run(host='0.0.0.0', port=12800)
+    Evenement.id_max = 1
+
+
+if __name__ == '__main__':
+    init_jeu()
+    app.run(host='0.0.0.0', port=PORT)

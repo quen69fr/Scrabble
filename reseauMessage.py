@@ -95,5 +95,5 @@ class ReseauClient:
     def envoie_points_chevalet(self, nb_points: int):
         self.envoie_evt_au_serveur(TYPE_EVT_NB_POINTS_CHEVALET, nb_points)
 
-    def exit_serveur(self):
-        self.get_serveur(ROUTE_EXIT)
+    def reinit_serveur(self):
+        self.get_serveur(ROUTE_REINIT)
